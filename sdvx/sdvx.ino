@@ -70,19 +70,14 @@ void setup() {
 void loop() {
 
     getControls();
-    //if (lastControl != controls) {
-
-        response[0] = 0xAA;
-        buttonUpdateSend++;
-        if (buttonUpdateSend > CONTROL_UPDATES) {
-            getEncoders();
-            buttonUpdateSend = 0;
-        }
-        Serial.write(response, RESPONSE_SIZE);
-        lastControl = controls;
-
-    //}
-
+    response[0] = 0xAA;
+    buttonUpdateSend++;
+    if (buttonUpdateSend > CONTROL_UPDATES) {
+        getEncoders();
+        buttonUpdateSend = 0;
+    }
+    Serial.write(response, RESPONSE_SIZE);
+    
 }
 
 void getEncoders() {
