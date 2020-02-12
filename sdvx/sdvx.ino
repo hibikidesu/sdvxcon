@@ -63,7 +63,7 @@ void setup() {
 
     Serial.begin(57600);
     while (!Serial) {}
-    setLights(255, 255, 255);
+    setConLights(255, 255, 255);
 
 }
 
@@ -75,6 +75,7 @@ void loop() {
         response[0] = 0xAA;
         getControls();
         getEncoders();
+        buttonLightUpdate();
         Serial.write(response, RESPONSE_SIZE);
         buttonUpdateSend = 0;
 
@@ -123,10 +124,29 @@ void getControls() {
   
 }
 
-void setLights(unsigned char r, unsigned char g, unsigned char b) {
+void setConLights(unsigned char r, unsigned char g, unsigned char b) {
 
     analogWrite(LT_CON_R, 255 - r);
     analogWrite(LT_CON_B, 255 - b);
     analogWrite(LT_CON_G, 255 - g);
+
+}
+
+void buttonLightUpdate() {
+
+    int i;
+    int x;
+    int toSet;
+    for (i = 0; i < 7; i++) {
+
+        x = 1 << i;
+        if ((response[1] & x) != 0) {
+            toSet = 1;
+        } else {
+            toSet = 0;
+        }
+        digitalWrite(lightPins, toSet);
+
+    }
 
 }
