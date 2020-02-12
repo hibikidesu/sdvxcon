@@ -1,14 +1,14 @@
 #include "Arduino.h"
 #include "config.h"
 
-byte lightPins[] = {
-    LT_START, 
+byte lightPins[] = { 
     LT_A, 
     LT_B, 
     LT_C, 
     LT_D, 
     LT_FX_L, 
-    LT_FX_R
+    LT_FX_R,
+    LT_START
 };
 byte lastControl;
 byte controls;
@@ -140,12 +140,8 @@ void buttonLightUpdate() {
     for (i = 0; i < 7; i++) {
 
         x = 1 << i;
-        if ((response[1] & x) != 0) {
-            toSet = 1;
-        } else {
-            toSet = 0;
-        }
-        digitalWrite(lightPins, toSet);
+        toSet = ((response[1] & x) != 0) ? 1 : 0;
+        digitalWrite(lightPins[i], toSet);
 
     }
 
