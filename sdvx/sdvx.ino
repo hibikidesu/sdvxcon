@@ -69,15 +69,17 @@ void setup() {
 
 void loop() {
 
-    getControls();
-    response[0] = 0xAA;
     buttonUpdateSend++;
     if (buttonUpdateSend > CONTROL_UPDATES) {
+
+        response[0] = 0xAA;
+        getControls();
         getEncoders();
+        Serial.write(response, RESPONSE_SIZE);
         buttonUpdateSend = 0;
+
     }
-    Serial.write(response, RESPONSE_SIZE);
-    
+
 }
 
 void getEncoders() {
