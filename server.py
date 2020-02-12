@@ -5,7 +5,7 @@ from time import sleep
 from enum import IntFlag
 import keyboard
 
-
+USE_VJOY = True
 BUTTON_LAYOUT = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
 class Button(IntFlag):
     A = 1
@@ -23,7 +23,7 @@ def keyboard_input(buttons: int):
     for i, b in enumerate(Button):
         if b.value & buttons:
             keyboard.press(BUTTON_LAYOUT[i])
-        else:
+        elif keyboard.is_pressed(BUTTON_LAYOUT[i]):
             keyboard.release(BUTTON_LAYOUT[i])
 
 
@@ -41,8 +41,10 @@ def run():
             if len(data) == 9:
                 try:
                     response = unpack(">bii", data)  # buttons, axis l, axis r
-                    #controller.data.lButtons = response[0]
-                    keyboard_input(response[0])
+                    if USE_VJOY:
+                        controller.data.lButtons = response[0]
+                    else:
+                        keyboard_input(response[0])
                     controller.data.wAxisXRot = int(response[1] * 32)
                     controller.data.wAxisYRot = int(response[2] * 32)
                     controller.update()
