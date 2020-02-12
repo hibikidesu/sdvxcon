@@ -69,6 +69,8 @@ void setup() {
 
 void loop() {
 
+    if (Serial.available() > 0) Serial.flush();
+
     buttonUpdateSend++;
     if (buttonUpdateSend > CONTROL_UPDATES) {
 
