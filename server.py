@@ -22,7 +22,9 @@ class Button(IntFlag):
 def keyboard_input(buttons: int):
     for i, b in enumerate(Button):
         if b.value & buttons:
-            keyboard.press_and_release(BUTTON_LAYOUT[i])
+            keyboard.press(BUTTON_LAYOUT[i])
+        else:
+            keyboard.release(BUTTON_LAYOUT[i])
 
 
 def run():
