@@ -105,9 +105,9 @@ void loop() {
 
     if (Serial.available() > 0) Serial.flush();
 
-    readKeypad();
-    if (keypad != 0x0) Serial.write(keypad);
-    delay(100);
+    //readKeypad();
+    //if (keypad != 0x0) Serial.write(keypad);
+    //delay(100);
 
     buttonUpdateSend++;
     if (buttonUpdateSend > CONTROL_UPDATES) {
@@ -116,7 +116,7 @@ void loop() {
         getControls();
         getEncoders();
         buttonLightUpdate();
-        //Serial.write(response, RESPONSE_SIZE);
+        Serial.write(response, RESPONSE_SIZE);
         buttonUpdateSend = 0;
 
     }
