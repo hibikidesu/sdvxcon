@@ -2,7 +2,8 @@
 #define SDVX_CFG
 
 #define RESPONSE_SIZE 11
-#define CONTROL_UPDATES 5
+#define CONTROL_UPDATES 7
+#undef RAINLIGHT
 
 // Buttons
 #define BT_FX_R A0
@@ -32,5 +33,14 @@
 #define LT_CON_R 7
 #define LT_CON_G 6
 #define LT_CON_B 5
+
+// Keypad
+#define K1_A 27
+#define K1_B 25
+#define K1_C 23
+#define K1_1 29
+#define K1_2 31
+#define K1_3 33
+#define K1_4 35
 
 #endif // SDVX_CFG
